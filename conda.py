@@ -135,6 +135,10 @@ def _check_installed(module, conda, name):
         line = data[0]
         if "::" in line:
             channel, other = line.split('::')
+        elif 'dist_name' in line:
+            # the str is replaced with a dict in newer versions of conda
+            other = line['dist_name']
+            channel = line['channel']
         else:
             other = line
         # split carefully as some package names have "-" in them (scikit-learn)
